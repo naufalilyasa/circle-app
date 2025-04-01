@@ -1,30 +1,24 @@
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
+import banner from "@/assets/image/abstract-polygonal-banner-background.jpg";
 
 function RightBar() {
   return (
-    <section className="flex flex-col p-10 w-135 gap-5">
+    <aside className="flex flex-col p-10 w-[35%] gap-5 max-height-svh">
       <Card className="w-full bg-[#262626] text-[#e8e8e8] border-none">
         <CardHeader className="flex flex-col gap-5">
           <CardTitle className="text-xl">My Profile</CardTitle>
-          <img src="" alt="" />
+          <img src={banner} alt="" className="rounded-lg h-20 w-full" />
           <div className="flex justify-between items-end w-full">
-            <div className="">
-              <Avatar className="w-12 h-12">
+            <div>
+              <Avatar className="w-16 h-16 ms-4 -mt-22 border-4 border-[#262626]">
                 <AvatarImage src="https://github.com/shadcn.png" />
                 <AvatarFallback>test</AvatarFallback>
               </Avatar>
@@ -55,6 +49,23 @@ function RightBar() {
       <Card className="w-full bg-[#262626] text-[#e8e8e8] border-none">
         <CardHeader className="flex flex-col gap-5">
           <CardTitle className="text-xl">Suggested for you</CardTitle>
+          <div className="flex justify-between w-full">
+            <div className="flex">
+              <Avatar className="w-12 h-12">
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>test</AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col ps-4">
+                <p className="font-bold">Mohammed Jawahir</p>
+                <p className="text-[#e8e8e8]/50">@em.jawahir</p>
+              </div>
+            </div>
+            <div className="">
+              <Button className="rounded-3xl bg-transparent border-1 border-[#e8e8e8]/50 text-[#e8e8e8]/50">
+                Following
+              </Button>
+            </div>
+          </div>
         </CardHeader>
       </Card>
       <Card className="w-full bg-[#262626] text-[#e8e8e8] border-none">
@@ -71,7 +82,7 @@ function RightBar() {
           </CardContent>
         </CardHeader>
       </Card>
-    </section>
+    </aside>
   );
 }
 

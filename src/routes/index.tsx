@@ -6,7 +6,7 @@ import ProtectedRouteLayout from "./ProtectedRoute";
 import Forgot from "./Forgot";
 import Reset from "./Reset";
 
-let router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     Component: ProtectedRouteLayout,
     children: [{ path: "/", Component: Home }],

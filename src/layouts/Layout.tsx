@@ -8,11 +8,11 @@ interface AppLayoutProps {
 
 function Layout({ children }: AppLayoutProps) {
   return (
-    <div className="flex bg-[#1d1d1d] min-h-svh w-screen">
+    <main className="flex bg-[#1d1d1d] min-h-svh font-poppins">
       <LeftBar />
       <section className="flex-1 text-[#e8e8e8]">{children}</section>
       <RightBar />
-    </div>
+    </main>
   );
 }
 
