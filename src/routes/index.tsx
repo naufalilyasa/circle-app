@@ -14,7 +14,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", Component: Home },
       { path: "/detail-post", Component: DetailPost },
-      { children: [{ path: "/my-profile", Component: MyProfile }] },
+      { path: "/my-profile/", Component: MyProfile },
     ],
   },
   // { path: "/", Component: Home },
