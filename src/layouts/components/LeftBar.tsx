@@ -4,12 +4,13 @@ import { MdOutlinePersonSearch } from "react-icons/md";
 import { CgProfile } from "react-icons/cg";
 import { TbLogout2 } from "react-icons/tb";
 import { FaRegHeart } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 function LeftBar() {
   return (
     <aside className="text-[#e8e8e8] px-12 py-8 w-[25%] max-h-svh">
-      <div className="flex flex-col w-full justify-between">
-        <div className="flex flex-col gap-5">
+      <div className="flex flex-col w-full h-full justify-between">
+        <div className="flex flex-col gap-5 mb-auto">
           <h1 className="text-[#04a41e] text-6xl font-bold ps-5">circle</h1>
           <div className="flex flex-col gap-4">
             <button className="flex items-center bg-transparent rounded-3xl w-full hover:bg-black active:bg-black/50 py-3 px-5">
@@ -24,10 +25,13 @@ function LeftBar() {
               <FaRegHeart className="text-3xl" />
               <span className="text-lg ps-2 font-normal">Follows</span>
             </button>
-            <button className="flex items-center bg-transparent rounded-3xl w-full hover:bg-black active:bg-black/50 py-3 px-5">
+            <NavLink
+              to={"/my-profile"}
+              className="flex items-center bg-transparent rounded-3xl w-full hover:bg-black active:bg-black/50 py-3 px-5"
+            >
               <CgProfile className="text-3xl" />
               <span className="text-lg ps-2 font-normal">Profile</span>
-            </button>
+            </NavLink>
           </div>
           <div>
             <Button className="w-full h-full rounded-3xl bg-[#04a41e] hover:bg-[#04a41e]/75 active:bg-[#04a41e] font-bold text-lg py-3">
@@ -35,7 +39,7 @@ function LeftBar() {
             </Button>
           </div>
         </div>
-        <div className="mt-40">
+        <div className="mt-auto">
           <button className="flex items-center bg-transparent rounded-3xl w-full hover:bg-black active:bg-black/50 py-3 px-5">
             <TbLogout2 className="text-3xl" />
             <span className="text-lg ps-2 font-normal">Logout</span>

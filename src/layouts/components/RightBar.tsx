@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -8,6 +6,7 @@ import { FaLinkedin } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import banner from "@/assets/image/abstract-polygonal-banner-background.jpg";
+import dumbwaysLogo from "@/assets/image/dumbways-logo.png";
 
 function RightBar() {
   return (
@@ -66,6 +65,23 @@ function RightBar() {
               </Button>
             </div>
           </div>
+          <div className="flex justify-between w-full">
+            <div className="flex">
+              <Avatar className="w-12 h-12">
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>test</AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col ps-4">
+                <p className="font-bold">Mohammed Jawahir</p>
+                <p className="text-[#e8e8e8]/50">@em.jawahir</p>
+              </div>
+            </div>
+            <div className="">
+              <Button className="rounded-3xl bg-transparent border-1 border-[#e8e8e8] text-[#e8e8e8]">
+                Follow
+              </Button>
+            </div>
+          </div>
         </CardHeader>
       </Card>
       <Card className="w-full bg-[#262626] text-[#e8e8e8] border-none">
@@ -77,8 +93,12 @@ function RightBar() {
             <FaFacebook className="w-6 h-6" />
             <FaInstagram className="w-6 h-6" />
           </CardTitle>
-          <CardContent className="text-[#e8e8e8]/50 p-0 m-0">
-            Powered by DumbWays Indonesia • #1 Coding Bootcamp
+          <CardContent className="flex text-[#e8e8e8]/50 p-0 m-0">
+            Powered by{" "}
+            <span className="flex items-center px-1">
+              <img src={dumbwaysLogo} alt="" className="h-4 w-5" />
+            </span>{" "}
+            DumbWays Indonesia • #1 Coding Bootcamp
           </CardContent>
         </CardHeader>
       </Card>

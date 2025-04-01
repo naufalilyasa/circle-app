@@ -5,11 +5,17 @@ import Register from "./Register";
 import ProtectedRouteLayout from "./ProtectedRoute";
 import Forgot from "./Forgot";
 import Reset from "./Reset";
+import DetailPost from "./DetailPost";
+import MyProfile from "./MyProfile";
 
 const router = createBrowserRouter([
   {
     Component: ProtectedRouteLayout,
-    children: [{ path: "/", Component: Home }],
+    children: [
+      { path: "/", Component: Home },
+      { path: "/detail-post", Component: DetailPost },
+      { children: [{ path: "/my-profile", Component: MyProfile }] },
+    ],
   },
   // { path: "/", Component: Home },
   { path: "/login", Component: Login },
