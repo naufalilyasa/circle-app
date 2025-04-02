@@ -28,10 +28,13 @@ function LeftBar() {
               <RiHome6Line className="text-3xl" />
               <span className="text-lg ps-2 font-bold">Home</span>
             </NavLink>
-            <button className="flex items-center bg-transparent rounded-3xl w-full hover:bg-black active:bg-black/50 py-3 px-5">
+            <NavLink
+              to={"/search"}
+              className="flex items-center bg-transparent rounded-3xl w-full hover:bg-black active:bg-black/50 py-3 px-5"
+            >
               <MdOutlinePersonSearch className="text-3xl" />
               <span className="text-lg ps-2 font-normal">Search</span>
-            </button>
+            </NavLink>
             <button className="flex items-center bg-transparent rounded-3xl w-full hover:bg-black active:bg-black/50 py-3 px-5">
               <FaRegHeart className="text-3xl" />
               <span className="text-lg ps-2 font-normal">Follows</span>

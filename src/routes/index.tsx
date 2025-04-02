@@ -8,6 +8,7 @@ import Reset from "./Reset";
 import DetailPost from "./DetailPost";
 import MyProfile from "./MyProfile";
 import Profile from "./Profile";
+import Search from "./Search";
 
 const router = createBrowserRouter([
   {
@@ -15,8 +16,9 @@ const router = createBrowserRouter([
     children: [
       { path: "/", Component: Home },
       { path: "/detail-post", Component: DetailPost },
-      { path: "/my-profile/", Component: MyProfile },
-      { path: "/profile/", Component: Profile },
+      { path: "/my-profile", Component: MyProfile },
+      { path: "/profile", Component: Profile },
+      { path: "/search", Component: Search },
     ],
   },
   // { path: "/", Component: Home },

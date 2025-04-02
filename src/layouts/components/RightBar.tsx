@@ -7,6 +7,7 @@ import { FaFacebook } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import banner from "@/assets/image/abstract-polygonal-banner-background.jpg";
 import dumbwaysLogo from "@/assets/image/dumbways-logo.png";
+import { NavLink } from "react-router-dom";
 
 function RightBar() {
   return (
@@ -48,23 +49,25 @@ function RightBar() {
       <Card className="w-full bg-[#262626] text-[#e8e8e8] border-none">
         <CardHeader className="flex flex-col gap-5">
           <CardTitle className="text-xl">Suggested for you</CardTitle>
-          <div className="flex justify-between w-full">
-            <div className="flex">
-              <Avatar className="w-12 h-12">
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>test</AvatarFallback>
-              </Avatar>
-              <div className="flex flex-col ps-4">
-                <p className="font-bold">Mohammed Jawahir</p>
-                <p className="text-[#e8e8e8]/50">@em.jawahir</p>
+          <NavLink to={"/profile"} className={"w-full"}>
+            <div className="flex justify-between items-center">
+              <div className="flex">
+                <Avatar className="w-12 h-12">
+                  <AvatarImage src="https://github.com/shadcn.png" />
+                  <AvatarFallback>test</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col ps-4">
+                  <p className="font-bold">Mohammed Jawahir</p>
+                  <p className="text-[#e8e8e8]/50">@em.jawahir</p>
+                </div>
+              </div>
+              <div className="">
+                <Button className="rounded-3xl bg-transparent border-1 border-[#e8e8e8]/50 text-[#e8e8e8]/50">
+                  Following
+                </Button>
               </div>
             </div>
-            <div className="">
-              <Button className="rounded-3xl bg-transparent border-1 border-[#e8e8e8]/50 text-[#e8e8e8]/50">
-                Following
-              </Button>
-            </div>
-          </div>
+          </NavLink>
           <div className="flex justify-between w-full">
             <div className="flex">
               <Avatar className="w-12 h-12">
