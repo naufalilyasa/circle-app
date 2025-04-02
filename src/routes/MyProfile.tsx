@@ -6,6 +6,16 @@ import { NavLink } from "react-router-dom";
 import banner from "@/assets/image/abstract-polygonal-banner-background.jpg";
 import { Button } from "@/components/ui/button";
 import imagePost from "@/assets/image/white-blossom.png";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { BiImageAdd } from "react-icons/bi";
 
 function MyProfile() {
   const image1: string =
@@ -29,9 +39,47 @@ function MyProfile() {
               </Avatar>
             </div>
             <div className="">
-              <Button variant={"outline"} className="px-5 flex-1 w-full">
-                Edit Profile
-              </Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant={"outline"} className="px-5 flex-1 w-full">
+                    Edit Profile
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="absolute top-100 w-[60%] bg-[#1d1d1d] text-[#e8e8e8] border-none rounded-2xl pt-10 px-5 gap-10">
+                  <DialogHeader>
+                    <DialogTitle>Edit profile</DialogTitle>
+                  </DialogHeader>
+                  <img src={banner} alt="" className="rounded-lg h-30 w-full" />
+                  <Avatar className="w-20 h-20 ms-6 -mt-20 border-4 border-[#1d1d1d]">
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                  </Avatar>
+                  {/* <BiImageAdd /> */}
+                  <div className="flex flex-col gap-4 items-start px-5">
+                    <input
+                      className="w-full border-1 border-[#e8e8e8]/50 p-2 text-[#e8e8e8] rounded-sm focus:outline-2 focus:outline-white"
+                      type="text"
+                      placeholder="Name"
+                    />
+                    <input
+                      className="w-full border-1 border-[#e8e8e8]/50 rounded-sm text-[#e8e8e8] p-2"
+                      type="text"
+                      placeholder="Username"
+                    />
+                    <textarea
+                      cols={3}
+                      className="border-1 border-[#e8e8e8]/50 rounded-sm w-full text-[#e8e8e8] p-2"
+                      placeholder="Bio"
+                    />
+                  </div>
+                  <DialogFooter className="border-t-1 border-[#e8e8e8]/50">
+                    <div className="flex justify-end items-center gap-3 w-full py-5 px-4">
+                      <Button className="rounded-3xl bg-[#04a41e] hover:bg-[#04a41e]/75 active:bg-[#04a41e] text-base px-5">
+                        Save
+                      </Button>
+                    </div>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
           <div>

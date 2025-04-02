@@ -7,6 +7,7 @@ import Forgot from "./Forgot";
 import Reset from "./Reset";
 import DetailPost from "./DetailPost";
 import MyProfile from "./MyProfile";
+import Profile from "./Profile";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
       { path: "/", Component: Home },
       { path: "/detail-post", Component: DetailPost },
       { path: "/my-profile/", Component: MyProfile },
+      { path: "/profile/", Component: Profile },
     ],
   },
   // { path: "/", Component: Home },

@@ -5,6 +5,7 @@ import { FcLike } from "react-icons/fc";
 import { FaRegHeart } from "react-icons/fa";
 import { LiaComment } from "react-icons/lia";
 import { NavLink } from "react-router-dom";
+import imagePost from "@/assets/image/white-blossom.png";
 
 function Home() {
   return (
@@ -71,7 +72,6 @@ function Home() {
         <article className="flex gap-5 p-5 items-start border-x-2 border-t-0 border-y-2 border-[#2c2c2c]">
           <Avatar className="w-10 h-10">
             <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>test</AvatarFallback>
           </Avatar>
           <div className="flex flex-col gap-2">
             <div className="flex gap-1.5 ">
@@ -111,10 +111,12 @@ function Home() {
           </Avatar>
           <div className="flex flex-col gap-2">
             <div className="flex gap-1.5">
-              <p className="font-bold text-[#e8e8e8]/50">Mona</p>
-              <span>@nmonarizqa</span>
-              <span>•</span>
-              <span>17h</span>
+              <p className="font-bold text-[#e8e8e8]">Mona</p>
+              <div className="flex gap-2 text-[#e8e8e8]/50">
+                <span>@nmonarizqa</span>
+                <span>•</span>
+                <span>17h</span>
+              </div>
             </div>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex in
@@ -124,42 +126,7 @@ function Home() {
               reprehenderit vero distinctio veniam eaque voluptatibus magni
               quidem tenetur iste repellendus. Nostrum est ipsa doloremque.
             </p>
-            <div className="flex gap-3 text-[#e8e8e8]/50">
-              <div className="flex gap-2">
-                <button className="text-2xl">
-                  <FaRegHeart />
-                </button>
-                <span>36</span>
-              </div>
-              <div className="flex gap-2">
-                <button className="text-2xl">
-                  <LiaComment />
-                </button>
-                <span>381 Replies</span>
-              </div>
-            </div>
-          </div>
-        </article>
-        <article className="flex gap-4 p-5 items-start border-x-2 border-t-0 border-y-2 border-[#2c2c2c]">
-          <Avatar className="w-10 h-10">
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>test</AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col gap-2">
-            <div className="flex gap-1.5">
-              <p className="font-bold text-[#e8e8e8]/50">Mona</p>
-              <span>@nmonarizqa</span>
-              <span>•</span>
-              <span>17h</span>
-            </div>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex in
-              quae fugiat perferendis? Cum, officia perspiciatis. Ducimus alias
-              ratione similique pariatur tenetur eaque! Saepe id sed unde, ut
-              rem corrupti, ipsam quae quibusdam magnam, consequuntur
-              reprehenderit vero distinctio veniam eaque voluptatibus magni
-              quidem tenetur iste repellendus. Nostrum est ipsa doloremque.
-            </p>
+            <img src={imagePost} alt="" className="rounded-lg w-[70%]" />
             <div className="flex gap-3 text-[#e8e8e8]/50">
               <div className="flex gap-2">
                 <button className="text-2xl">
