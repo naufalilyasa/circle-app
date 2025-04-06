@@ -8,9 +8,9 @@ interface AppLayoutProps {
 
 function Layout({ children }: AppLayoutProps) {
   return (
-    <main className="flex bg-[#1d1d1d] min-h-svh font-poppins">
+    <main className="flex bg-[#1d1d1d] min-h-svh font-plus-jakarta-sans text-[#fff]">
       <LeftBar />
-      <section className="flex-1 text-[#e8e8e8]">{children}</section>
+      <section className="flex-1">{children}</section>
       <RightBar />
     </main>
   );
