@@ -65,8 +65,8 @@ function ForgotPage() {
       <div
         className={
           data && isSuccess
-            ? "bg-[#1d1d1d] mx-auto w-[35rem] pt-30"
-            : "bg-[#1d1d1d] mx-auto w-100 pt-30"
+            ? "bg-[#1d1d1d] mx-auto w-[35rem] md:w-[50%] md:pt-30 max-md:w-[80%] max-md:pt-20"
+            : "bg-[#1d1d1d] mx-auto lg:w-100 md:w-[50%] md:pt-30 max-md:w-[80%] max-md:pt-20"
         }
       >
         {data && isSuccess ? (
@@ -89,11 +89,11 @@ function ForgotPage() {
               className="flex flex-col justify-center items-center gap-5"
               onSubmit={handleSubmit(onSubmit)}
             >
-              <div className="flex flex-col justify-start items-start w-full gap-3">
+              <div className="flex flex-col justify-start items-start w-full gap-3 lg:w-100 md:w-full max-md:w-full">
                 <h1 className="text-4xl font-bold text-[#04a41e]">Circle</h1>
                 <h2 className="text-3xl font-bold">Forgot to Password</h2>
               </div>
-              <div className="flex flex-col w-100 gap-3">
+              <div className="flex flex-col w-100 gap-3 lg:w-100 md:w-full max-md:w-full gap-3">
                 <FormField
                   control={form.control}
                   name="email"
