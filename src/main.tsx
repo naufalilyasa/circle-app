@@ -5,7 +5,6 @@ import ReactDOM from "react-dom/client";
 import { routeTree } from "./routeTree.gen.ts";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
-import { CookiesProvider } from "react-cookie";
 
 const queryClient = new QueryClient();
 
@@ -36,7 +35,6 @@ const root = ReactDOM.createRoot(rootElement);
 root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <CookiesProvider />
       <ToastContainer />
       <RouterProvider router={router} />
     </QueryClientProvider>
