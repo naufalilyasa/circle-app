@@ -21,10 +21,7 @@ function useFollowUnfollow(queryKeys?: string[][]) {
   const { mutate: unfollow, isPending: isLoadingUnfollow } = useMutation({
     mutationKey: ["unfollowUser"],
     mutationFn: (payload: UnfollowRequest) => userUnfollowFn(payload),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["usersIsFollower"] });
-      queryClient.invalidateQueries({ queryKey: ["getSuggestedFollowers"] });
-    },
+    onSuccess: invalidateAll,
   });
 
   const onClickFollowHandler = (values: FollowRequest) => {

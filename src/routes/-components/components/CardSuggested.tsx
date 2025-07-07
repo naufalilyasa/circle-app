@@ -13,19 +13,19 @@ function CardSuggested() {
   const { authUser } = useAuthUserStore();
   const userId = authUser!.data.user.id;
 
-  const {
-    isLoadingFollow,
-    isLoadingUnfollow,
-    onClickFollowHandler,
-    onClickUnfollowHandler,
-  } = useFollowUnfollow([["getSuggestedFollowers"]]);
-
   const { data: suggestedFollowers, isLoading: isLoadingsuggestedFollowers } =
     useQuery({
       queryKey: ["getSuggestedFollowers", userId],
       queryFn: () => getSuggestedFollowers(userId!),
       initialData: defaultDataSuggestedFollowers,
     });
+
+  const {
+    isLoadingFollow,
+    isLoadingUnfollow,
+    onClickFollowHandler,
+    onClickUnfollowHandler,
+  } = useFollowUnfollow([["getSuggestedFollowers"]]);
 
   if (isLoadingsuggestedFollowers) return <Loading size={8} />;
   return (

@@ -30,7 +30,7 @@ function DialogCreateTweet() {
     isPending: isPendingCreateTweet,
     form,
     onSubmitCreateTweet,
-  } = useCreateTweet();
+  } = useCreateTweet([["getAllTweetsAndPaginated"]]);
 
   useEffect(() => {
     if (!isSubmitSuccessful) return;

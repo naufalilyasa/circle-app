@@ -59,6 +59,7 @@ function DetailPostPage() {
       authorId: data?.authorId,
       id: data?.id,
     },
+    queryKeys: [["tweetById"]],
   });
 
   useEffect(() => {

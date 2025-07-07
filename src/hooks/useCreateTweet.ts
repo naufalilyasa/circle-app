@@ -7,13 +7,20 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-function useCreateTweet() {
+function useCreateTweet(queryKeys?: string[][]) {
   const { authUser } = useAuthUserStore();
   const userId = authUser?.data.user.id;
   const form = useForm<CreateTweetDTO>({
     resolver: zodResolver(TweetValidation.CREATE_TWEET),
   });
+
   const queryClient = useQueryClient();
+  const invalidateAll = () => {
+    if (!queryKeys) return;
+    queryKeys.forEach((key) => {
+      queryClient.invalidateQueries({ queryKey: key });
+    });
+  };
 
   const { reset, formState, handleSubmit } = form;
 
@@ -28,7 +35,7 @@ function useCreateTweet() {
       toast.success("You successfully created tweet", {
         position: "top-right",
       });
-      queryClient.invalidateQueries({ queryKey: ["getAllTweets"] });
+      invalidateAll();
     },
     onError: (error: Error) => {
       if (Array.isArray(error.message)) {

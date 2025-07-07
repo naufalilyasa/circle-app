@@ -59,7 +59,7 @@ function RouteComponent() {
     isLoadingUnlikeTweet,
     onClickLikeTweetHandler,
     onClickUnlikeTweetHandler,
-  } = useLikeUnlikeTweet([["getDetailProfileAllTweetsByUserId"]]);
+  } = useLikeUnlikeTweet([["getAllTweetsByUserId"]]);
 
   if (isLoading) return <Loading size={8} />;
 

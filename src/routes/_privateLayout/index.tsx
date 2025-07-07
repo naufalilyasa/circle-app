@@ -58,7 +58,7 @@ function HomePage() {
     isLoadingUnlikeTweet,
     onClickLikeTweetHandler,
     onClickUnlikeTweetHandler,
-  } = useLikeUnlikeTweet([["getAllTweets"]]);
+  } = useLikeUnlikeTweet([["getAllTweetsAndPaginated"]]);
 
   if (isLoading) {
     return (

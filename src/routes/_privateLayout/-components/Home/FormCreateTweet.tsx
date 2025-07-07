@@ -26,7 +26,7 @@ function FormCreateTweet() {
     isPending,
     reset,
     onSubmitCreateTweet,
-  } = useCreateTweet();
+  } = useCreateTweet([["getAllTweetsAndPaginated"]]);
 
   useEffect(() => {
     if (!isSubmitSuccessful) return;

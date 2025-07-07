@@ -27,7 +27,14 @@ function ThreeDotsPopover({ tweetProps }: { tweetProps: TweetPropsType }) {
     isLoadingUnfollow,
     onClickFollowHandler,
     onClickUnfollowHandler,
-  } = useFollowUnfollow([["getAllUsers"]]);
+  } = useFollowUnfollow([
+    [
+      "getAllUsers",
+      "getAllTweetsAndPaginated",
+      "getUserById",
+      "getSuggestedFollowers",
+    ],
+  ]);
 
   return (
     <>

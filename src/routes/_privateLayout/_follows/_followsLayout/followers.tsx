@@ -29,7 +29,7 @@ function Followers() {
     onClickFollowHandler,
     onClickUnfollowHandler,
   } = useFollowUnfollow([
-    ["usersIsFollower", "getSuggestedFollowers", "getAllTweets"],
+    ["usersIsFollower", "getSuggestedFollowers", "getUserById"],
   ]);
 
   if (isLoading) return <Loading size={8} />;
