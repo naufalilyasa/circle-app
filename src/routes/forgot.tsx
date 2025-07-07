@@ -55,7 +55,7 @@ function ForgotPage() {
     if (isSubmitSuccessful) {
       reset();
     }
-  }, [isSubmitSuccessful]);
+  }, [isSubmitSuccessful, reset]);
 
   const onSubmit: SubmitHandler<ForgotPasswordRequest> = ({ email }) => {
     forgotPassword(email);

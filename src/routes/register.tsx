@@ -17,6 +17,8 @@ export const Route = createFileRoute({
   component: RegisterPage,
 });
 
+// Refresh commit
+
 function RegisterPage() {
   const form = useForm<RegisterUserDTO>({
     resolver: zodResolver(AuthUserValidation.REGISTER),
