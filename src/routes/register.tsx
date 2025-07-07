@@ -1,72 +1,23 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { SubmitHandler, useForm } from "react-hook-form";
 import { Link } from "@tanstack/react-router";
-import { RegisterUserDTO, AuthUserValidation } from "@/schemas/auth";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { RegisterUserRequest } from "@/types/auth";
-import { signUpUserFn } from "@/api/auth";
-import { toast } from "react-toastify";
-import { useEffect } from "react";
-import { Loader2Icon } from "lucide-react";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import useRegister from "@/hooks/useRegister";
+import { Loader2Icon } from "lucide-react";
 
 export const Route = createFileRoute({
   component: RegisterPage,
 });
 
 function RegisterPage() {
-  const form = useForm<RegisterUserDTO>({
-    resolver: zodResolver(AuthUserValidation.REGISTER),
-  });
-
-  const {
-    mutate: registerUser,
-    data,
-    isSuccess,
-    isPending,
-  } = useMutation({
-    mutationKey: ["registerAuth"],
-    mutationFn: (userData: RegisterUserRequest) => signUpUserFn(userData),
-    onSuccess: (data) => {
-      toast.success(data?.message);
-    },
-    onError: (error: any) => {
-      if (Array.isArray((error as any).response.data.error)) {
-        (error as any).response.data.error.forEach((element: any) => {
-          toast.error(element.message, {
-            position: "top-right",
-          });
-        });
-      } else {
-        toast.error((error as any).response.data.message, {
-          position: "top-right",
-        });
-      }
-    },
-  });
-
-  const {
-    reset,
-    formState: { isSubmitSuccessful, errors },
-  } = form;
-
-  useEffect(() => {
-    if (isSubmitSuccessful) reset();
-  }, [isSubmitSuccessful, reset]);
-
-  const onSubmit: SubmitHandler<RegisterUserRequest> = (values) => {
-    registerUser(values);
-  };
+  const { data, errors, form, isPending, isSuccess, onSubmit } = useRegister();
   return (
     <section className="bg-[#1d1d1d] text-[#e8e8e8] min-h-svh w-screen">
       <div
         className={
           data && isSuccess
-            ? "bg-[#1d1d1d] mx-auto w-[35rem] pt-30"
-            : "bg-[#1d1d1d] mx-auto w-100 pt-30"
+            ? "bg-[#1d1d1d] mx-auto w-[35rem] md:w-[50%] md:pt-30 max-md:w-[80%] max-md:pt-20"
+            : "bg-[#1d1d1d] mx-auto lg:w-100 md:w-[50%] md:pt-30 max-md:w-[80%] max-md:pt-20"
         }
       >
         {data && isSuccess ? (
@@ -89,11 +40,11 @@ function RegisterPage() {
               className="flex flex-col justify-center items-center gap-5"
               onSubmit={form.handleSubmit(onSubmit)}
             >
-              <div className="flex flex-col justify-start items-start w-full gap-3">
+              <div className="flex flex-col justify-start items-start w-full gap-3 lg:w-100 md:w-full max-md:w-full">
                 <h1 className="text-4xl font-bold text-[#04a41e]">Circle</h1>
                 <h2 className="text-3xl font-bold">Create account Circle</h2>
               </div>
-              <div className="flex flex-col w-100 gap-3">
+              <div className="flex flex-col lg:w-100 md:w-full max-md:w-full gap-3">
                 <FormField
                   control={form.control}
                   name="name"
@@ -212,7 +163,7 @@ function RegisterPage() {
                     <span>Create</span>
                   )}
                 </Button>
-                <div className="flex pt-1">
+                <div className="flex pt-1 w-full">
                   <p>Already have account? </p>
                   <Link to={"/login"} className={"ps-1 text-[#04a41e]"}>
                     Login
