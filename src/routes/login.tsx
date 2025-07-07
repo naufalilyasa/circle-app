@@ -1,63 +1,36 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { AuthUserValidation, LoginUserDTO } from "@/schemas/auth";
 import { useEffect } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getMeFn, loginUserFn } from "@/api/auth";
-import { toast } from "react-toastify";
+import { useQuery } from "@tanstack/react-query";
+import { getMeFn } from "@/api/auth";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Loader2Icon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { LoginUserRequest } from "@/types/auth";
-import { useCookies } from "react-cookie";
-import { useRouter } from "@tanstack/react-router";
+import Loading from "./_privateLayout/-components/Other/Loading";
+import useLogin from "@/hooks/useLogin";
 
 export const Route = createFileRoute({
   component: LoginPage,
 });
 
 function LoginPage() {
-  const [cookies] = useCookies(["logged_in"]);
-
   const navigate = useNavigate();
-  const router = useRouter();
-
-  const form = useForm<LoginUserDTO>({
-    resolver: zodResolver(AuthUserValidation.LOGIN),
-  });
 
   const {
-    reset,
-    formState: { errors, isSubmitSuccessful },
+    errors,
+    form,
     handleSubmit,
-  } = form;
+    isPending,
+    isSubmitSuccessful,
+    onSubmit,
+    reset,
+  } = useLogin();
 
-  const { isPending, mutate: loginUser } = useMutation({
-    mutationFn: (userData: LoginUserRequest) => loginUserFn(userData),
-    onSuccess: () => {
-      toast.success("You successfully logged in", {
-        position: "top-right",
-      });
-      queryClient.invalidateQueries({ queryKey: ["getMe"] });
-      navigate({ to: "/" });
-    },
-    onError: (error: Error) => {
-      if (Array.isArray(error.message)) {
-        (error as any).message.forEach((element: any) => {
-          toast.error(element, { position: "top-right" });
-        });
-      } else {
-        toast.error(error.message, {
-          position: "top-right",
-        });
-      }
-    },
-  });
-
-  const queryGetMe = useQuery({
+  const {
+    data: dataGetMe,
+    error,
+    isLoading,
+  } = useQuery({
     queryKey: ["getMe"],
     queryFn: getMeFn,
     retry: 1,
@@ -66,30 +39,22 @@ function LoginPage() {
     enabled: false,
   });
 
-  const queryClient = useQueryClient();
-
-  if (!cookies.logged_in) {
-    queryClient.invalidateQueries({ queryKey: ["getMe"] });
-  }
-
   useEffect(() => {
     if (!isSubmitSuccessful) return;
     reset();
   }, [isSubmitSuccessful, reset]);
 
-  const onSubmit: SubmitHandler<LoginUserDTO> = (values) => {
-    loginUser(values);
-  };
-
   useEffect(() => {
-    if (cookies.logged_in) {
-      (() => router.history.back())();
+    if (dataGetMe) {
+      navigate({ to: "/" });
     }
-  }, [cookies.logged_in, router.history]);
+  }, [dataGetMe, navigate]);
+
+  if (isLoading) return <Loading size={8} />;
 
   return (
     <section className="bg-[#1d1d1d] text-[#e8e8e8] min-h-svh w-screen">
-      <div className="mx-auto w-100 pt-30">
+      <div className="mx-auto lg:w-100 md:w-[50%] max-md:w-[80%] md:pt-30 max-md:pt-20">
         <Form {...form}>
           <form
             action=""
@@ -100,10 +65,10 @@ function LoginPage() {
               <h1 className="text-4xl font-bold text-[#04a41e]">Circle</h1>
               <h2 className="text-3xl font-bold">Login to Circle</h2>
               <p className="text-sm text-red-500">
-                {queryGetMe.error ? queryGetMe.error.message : " "}
+                {error ? error.message : " "}
               </p>
             </div>
-            <div className="flex flex-col w-100 gap-3">
+            <div className="flex flex-col lg:w-100 md:w-full max-md:w-full gap-3">
               <FormField
                 control={form.control}
                 name="email"
@@ -164,7 +129,7 @@ function LoginPage() {
                 )}
               </Button>
 
-              <div className="flex pt-1">
+              <div className="flex pt-1 max-md:text-sm">
                 <p>Don't have an account yet? </p>
                 <Link to={"/register"} className={"ps-1 text-[#04a41e]"}>
                   Create account
