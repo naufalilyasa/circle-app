@@ -6,7 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useCookies } from "react-cookie";
 import LeftBar from "./-components/LeftBar";
 import { Menu } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Route = createFileRoute({
   component: MainLayout,
@@ -16,6 +16,11 @@ function MainLayout() {
   const [cookies] = useCookies(["logged_in", "access_token"]);
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    console.log(cookies);
+
+    console.log("document.cookie:", document.cookie);
+  }, []);
   const { isLoading } = useQuery({
     queryKey: ["getMe"],
     queryFn: getMeFn,
