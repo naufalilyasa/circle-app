@@ -72,7 +72,6 @@ function FormCreateTweet() {
                         className="text-xl font-medium placeholder:text-[#909090] placeholder:max-md:text-sm max-md:text-sm w-full resize-none focus:outline-none overflow-hidden"
                         rows={1}
                         defaultValue={""}
-                        key={fileKey}
                         {...field}
                         placeholder="What is happening?!"
                       />
