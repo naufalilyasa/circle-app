@@ -17,8 +17,6 @@ export const Route = createFileRoute({
   component: RegisterPage,
 });
 
-// Refresh commit
-
 function RegisterPage() {
   const form = useForm<RegisterUserDTO>({
     resolver: zodResolver(AuthUserValidation.REGISTER),
@@ -57,7 +55,7 @@ function RegisterPage() {
 
   useEffect(() => {
     if (isSubmitSuccessful) reset();
-  }, [isSubmitSuccessful]);
+  }, [isSubmitSuccessful, reset]);
 
   const onSubmit: SubmitHandler<RegisterUserRequest> = (values) => {
     registerUser(values);

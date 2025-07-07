@@ -90,7 +90,6 @@ function LoginPage() {
   return (
     <section className="bg-[#1d1d1d] text-[#e8e8e8] min-h-svh w-screen">
       <div className="mx-auto w-100 pt-30">
-        {/* refresh commit */}
         <Form {...form}>
           <form
             action=""
