@@ -14,9 +14,7 @@ export const Route = createRootRouteWithContext<{
 function RootComponent() {
   return (
     <>
-      {/* <CookiesProvider> */}
-        <Outlet />
-      {/* </CookiesProvider> */}
+      <Outlet />
     </>
   );
 }

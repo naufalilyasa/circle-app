@@ -36,10 +36,9 @@ const root = ReactDOM.createRoot(rootElement);
 root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <CookiesProvider>
-        <ToastContainer />
-        <RouterProvider router={router} />
-      </CookiesProvider>
+      <CookiesProvider />
+      <ToastContainer />
+      <RouterProvider router={router} />
     </QueryClientProvider>
   </StrictMode>
 );
