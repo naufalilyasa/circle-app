@@ -28,17 +28,20 @@ function MainLayout() {
 
   const toggleSidebar = () => setIsOpen(!isOpen);
 
+  if (isLoading)
+    return (
+      <div className="flex mt-20 justify-center items-center w-full">
+        <Skeleton className="h-12 w-12 rounded-full" />
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[200px]" />
+        </div>
+      </div>
+    );
+
   return (
     <main className="flex bg-[#1d1d1d] min-h-svh max-w-screen overflow-hidden overflow-x-hidden font-plus-jakarta-sans text-[#fff]">
-      {isLoading ? (
-        <div className="flex mt-20 justify-center items-center w-full">
-          <Skeleton className="h-12 w-12 rounded-full" />
-          <div className="space-y-2">
-            <Skeleton className="h-4 w-[250px]" />
-            <Skeleton className="h-4 w-[200px]" />
-          </div>
-        </div>
-      ) : isError ? (
+      {isError ? (
         <Navigate to="/login" replace />
       ) : !cookies.logged_in ? (
         <Navigate to="/login" replace />
