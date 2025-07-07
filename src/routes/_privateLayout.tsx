@@ -41,11 +41,13 @@ function MainLayout() {
 
   return (
     <main className="flex bg-[#1d1d1d] min-h-svh max-w-screen overflow-hidden overflow-x-hidden font-plus-jakarta-sans text-[#fff]">
-      {isError ? (
-        <Navigate to="/login" replace />
-      ) : !cookies.logged_in ? (
-        <Navigate to="/login" replace />
-      ) : (
+      {
+        // isError ? (
+        //   <Navigate to="/login" replace />
+        // ) :
+        //  !cookies.logged_in ? (
+        //   <Navigate to="/login" replace />
+        // ) : (
         <>
           {/* Overlay */}
           {isOpen && (
@@ -60,7 +62,8 @@ function MainLayout() {
           </section>
           <RightBar />
         </>
-      )}
+        // )
+      }
     </main>
   );
 }
