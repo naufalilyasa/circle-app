@@ -1,9 +1,9 @@
 import RightBar from "@/routes/-components/RightBar";
-import { Navigate, Outlet } from "@tanstack/react-router";
+import { Outlet } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { getMeFn } from "@/api/auth";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useCookies } from "react-cookie";
+// import { useCookies } from "react-cookie";
 import LeftBar from "./-components/LeftBar";
 import { Menu } from "lucide-react";
 import { useState } from "react";
@@ -13,10 +13,10 @@ export const Route = createFileRoute({
 });
 
 function MainLayout() {
-  const [cookies] = useCookies(["logged_in", "access_token"]);
+  // const [cookies] = useCookies(["logged_in", "access_token"]);
   const [isOpen, setIsOpen] = useState(false);
 
-  const { isLoading, isError } = useQuery({
+  const { isLoading } = useQuery({
     queryKey: ["getMe"],
     queryFn: getMeFn,
     retry: 3,
