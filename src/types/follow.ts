@@ -44,7 +44,7 @@ export interface UnfollowResponse {
 }
 
 export interface UsersIsFollowingResponse {
-  usersIsFollowing: [UsersIsfollowingType];
+  usersIsFollowing: UsersIsfollowingType[];
 }
 
 export interface UsersIsfollowingType {
@@ -57,7 +57,7 @@ export interface UsersIsfollowingType {
 }
 
 export interface UsersIsFollowerResponse {
-  usersIsFollower: [UsersIsfollowerType];
+  usersIsFollower: UsersIsfollowerType[];
 }
 
 export interface UsersIsfollowerType {

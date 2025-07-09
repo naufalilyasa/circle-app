@@ -16,11 +16,11 @@ function Followers() {
   const { authUser } = useAuthUserStore();
   const userId = authUser?.data.user.id;
 
-  const { data: dataUserIsFollow, isLoading } = useQuery({
+  const { data: dataUserIsFollow, isFetching } = useQuery({
     queryKey: ["usersIsFollower", userId],
     queryFn: () => getUsersIsFollowerFn(userId!),
     enabled: !!userId,
-    initialData: defaultDataUsersIsFollower,
+    placeholderData: defaultDataUsersIsFollower,
   });
 
   const {
@@ -32,13 +32,15 @@ function Followers() {
     ["usersIsFollower", "getSuggestedFollowers", "getUserById"],
   ]);
 
-  if (isLoading) return <Loading size={8} />;
-
   return (
     <div className="w-full">
-      {!dataUserIsFollow.length ? (
+      {!dataUserIsFollow?.length ? (
         <div className="max-md:w-65 p-5">
           <p>No follower.</p>
+        </div>
+      ) : isFetching ? (
+        <div className="mt-10">
+          <Loading size={8} />
         </div>
       ) : (
         dataUserIsFollow.map((follower) => (

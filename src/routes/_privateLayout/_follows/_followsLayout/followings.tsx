@@ -35,11 +35,11 @@ function RouteComponent() {
     },
   ];
 
-  const { data: dataUserIsFollow, isLoading } = useQuery({
+  const { data: dataUserIsFollow, isFetching } = useQuery({
     queryKey: ["usersIsFollowing", userId],
     queryFn: () => getUsersIsFollowingFn(userId!),
     enabled: !!userId,
-    initialData: defaultDataUsersIsFollow,
+    placeholderData: defaultDataUsersIsFollow,
   });
 
   const { mutate: follow, isPending: isLoadingFollow } = useMutation({
@@ -66,14 +66,14 @@ function RouteComponent() {
     unfollow(values);
   };
 
-  if (isLoading) return <Loading size={8} />;
-
   return (
     <div className="">
-      {!dataUserIsFollow.length ? (
+      {!dataUserIsFollow?.length ? (
         <div className="max-md:w-65 p-5">
           <p>No following.</p>
         </div>
+      ) : isFetching ? (
+        <Loading size={8} />
       ) : (
         dataUserIsFollow.map((following) => (
           <Link
