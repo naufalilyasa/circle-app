@@ -40,11 +40,11 @@ function DetailPostPage() {
   const { authUser } = useAuthUserStore();
   const userId = authUser?.data.user.id;
 
-  const { data, isLoading } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: ["tweetById", tweetId],
     queryFn: () => tweetByIdFn(tweetId),
     enabled: !!tweetId,
-    initialData: defaultDataDetailTweet,
+    placeholderData: defaultDataDetailTweet,
   });
 
   const {
@@ -91,7 +91,12 @@ function DetailPostPage() {
     onClickUnlikeReplyHandler,
   } = useLikeUnlikeReply();
 
-  if (isLoading) return <Loading size={8} />;
+  if (isFetching)
+    return (
+      <div className="mt-20">
+        <Loading size={8} />
+      </div>
+    );
 
   return (
     <section>
