@@ -14,6 +14,10 @@ function useLogin() {
 
   const form = useForm<LoginUserDTO>({
     resolver: zodResolver(AuthUserValidation.LOGIN),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
   const {
@@ -22,7 +26,7 @@ function useLogin() {
     handleSubmit,
   } = form;
 
-  const { isPending, mutate: loginUser } = useMutation({
+  const { isPending, mutateAsync: loginUser } = useMutation({
     mutationFn: (userData: LoginUserRequest) => loginUserFn(userData),
     onSuccess: () => {
       toast.success("You successfully logged in", {

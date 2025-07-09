@@ -1,5 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import useRegister from "@/hooks/useRegister";
@@ -10,7 +16,7 @@ export const Route = createFileRoute({
 });
 
 function RegisterPage() {
-  const { data, errors, form, isPending, isSuccess, onSubmit } = useRegister();
+  const { data, form, isPending, isSuccess, onSubmit } = useRegister();
   return (
     <section className="bg-[#1d1d1d] text-[#e8e8e8] min-h-svh w-screen">
       <div
@@ -57,11 +63,7 @@ function RegisterPage() {
                           className="w-full border rounded-md p-2 border-gray-500 text-lg py-6 placeholder:text-neutral-400"
                         />
                       </FormControl>
-                      {errors.name && (
-                        <p className="text-sm text-red-500">
-                          {errors.name.message}
-                        </p>
-                      )}
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -78,11 +80,7 @@ function RegisterPage() {
                         />
                       </FormControl>
 
-                      {errors.username && (
-                        <p className="text-sm text-red-500">
-                          {errors.username.message}
-                        </p>
-                      )}
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -99,11 +97,7 @@ function RegisterPage() {
                           className="w-full border rounded-md p-2 border-gray-500 text-lg py-6 placeholder:text-neutral-400"
                         />
                       </FormControl>
-                      {errors.email && (
-                        <p className="text-sm text-red-500">
-                          {errors.email.message}
-                        </p>
-                      )}
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -120,11 +114,7 @@ function RegisterPage() {
                           className="w-full border rounded-md p-2 border-gray-500 text-lg py-6 placeholder:text-neutral-400"
                         />
                       </FormControl>
-                      {errors.password && (
-                        <p className="text-sm text-red-500">
-                          {errors.password.message}
-                        </p>
-                      )}
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -141,11 +131,7 @@ function RegisterPage() {
                           className="w-full border rounded-md p-2 border-gray-500 text-lg py-6 placeholder:text-neutral-400"
                         />
                       </FormControl>
-                      {errors.passwordConfirm && (
-                        <p className="text-sm text-red-500">
-                          {errors.passwordConfirm.message}
-                        </p>
-                      )}
+                      <FormMessage />
                     </FormItem>
                   )}
                 />

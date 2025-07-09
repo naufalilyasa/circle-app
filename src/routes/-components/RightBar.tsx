@@ -13,7 +13,8 @@ function RightBar() {
       {
         <aside className="p-10 lg:flex-4/12 lg:block hidden border-s-1 border-[#3f3f3f] max-height-svh">
           <div className="flex flex-col gap-5">
-            {currentLocation === "/profile" ? (
+            {currentLocation === "/profile" ||
+            currentLocation === "/profile/media" ? (
               <></>
             ) : (
               // User Profile

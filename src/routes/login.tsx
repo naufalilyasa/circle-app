@@ -2,7 +2,13 @@ import { useEffect } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { getMeFn } from "@/api/auth";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Loader2Icon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -16,15 +22,8 @@ export const Route = createFileRoute({
 function LoginPage() {
   const navigate = useNavigate();
 
-  const {
-    errors,
-    form,
-    handleSubmit,
-    isPending,
-    isSubmitSuccessful,
-    onSubmit,
-    reset,
-  } = useLogin();
+  const { form, handleSubmit, isPending, isSubmitSuccessful, onSubmit, reset } =
+    useLogin();
 
   const {
     data: dataGetMe,
@@ -82,11 +81,7 @@ function LoginPage() {
                         className="w-full border rounded-md p-2 border-gray-500 text-lg py-6 placeholder:text-neutral-400"
                       />
                     </FormControl>
-                    {errors.email && (
-                      <p className="text-sm text-red-500">
-                        {errors.email.message}
-                      </p>
-                    )}
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -103,11 +98,7 @@ function LoginPage() {
                         className="w-full border rounded-md p-2 border-gray-500 text-lg py-6 placeholder:text-neutral-400"
                       />
                     </FormControl>
-                    {errors.password && (
-                      <p className="text-sm text-red-500">
-                        {errors.password.message}
-                      </p>
-                    )}
+                    <FormMessage />
                   </FormItem>
                 )}
               />

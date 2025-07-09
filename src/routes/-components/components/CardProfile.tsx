@@ -15,9 +15,15 @@ function CardProfile() {
     queryKey: ["getUserById", userId],
     queryFn: () => getUserByIdFn(userId!),
     enabled: !!userId,
-    initialData: defaultDataUserById,
+    placeholderData: defaultDataUserById,
   });
-  if (isLoading) return <Loading size={8} />;
+
+  if (isLoading)
+    return (
+      <div className="mt-20 flex justify-center items-center mx-auto">
+        <Loading size={8} />;
+      </div>
+    );
   return (
     <>
       <Card className="w-full bg-[#262626] text-[#fff] border-none">
@@ -25,7 +31,7 @@ function CardProfile() {
           <CardHeader className="flex flex-col gap-5">
             <CardTitle className="text-xl">My Profile</CardTitle>
             <img
-              src={data.banner ? data.banner : "default-banner.jpg"}
+              src={data?.banner ? data.banner : "default-banner.jpg"}
               alt=""
               className="rounded-lg h-25 w-full"
             />
@@ -52,20 +58,20 @@ function CardProfile() {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 mt-2">
               <h1 className="text-2xl font-bold">{data?.name}</h1>
               <p className="text-[#909090] text-sm">@{data?.username}</p>
               <p className="text-base">{data?.bio}</p>
               <div className="flex py-1 gap-3">
                 <div className="flex gap-1">
                   <p className="font-bold">
-                    {data._count.followings ? data._count.followings : "0"}
+                    {data?._count.followings ? data._count.followings : "0"}
                   </p>
                   <span className="text-[#909090]">following</span>
                 </div>
                 <div className="flex gap-1">
                   <p className="font-bold">
-                    {data._count.followers ? data._count.followers : "0"}
+                    {data?._count.followers ? data._count.followers : "0"}
                   </p>
                   <span className="text-[#909090]">followers</span>
                 </div>

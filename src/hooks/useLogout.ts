@@ -2,21 +2,24 @@
 import { logoutUserFn } from "@/api/auth";
 import { useAuthUserStore } from "@/stores/auth";
 import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "@tanstack/react-router";
+import { useRouter } from "@tanstack/react-router";
 import { toast } from "react-toastify";
 
 function useLogout() {
   const { setAuthUser } = useAuthUserStore();
-  const navigate = useNavigate();
+  const navigate = useRouter();
 
-  const { mutate, isPending } = useMutation({
+  const { mutate: logoutUser, isPending } = useMutation({
     mutationFn: () => logoutUserFn(),
     onSuccess: () => {
       toast.success("Successfully logged out", {
         position: "top-right",
       });
       setAuthUser(null);
-      navigate({ to: "/login" });
+      return navigate.navigate({
+        to: "/login",
+        replace: true,
+      });
     },
     onError: (error: any) => {
       if (Array.isArray((error as any).responses.data.error)) {
@@ -30,7 +33,12 @@ function useLogout() {
       }
     },
   });
-  return { mutate, isPending };
+
+  const onSubmitLogout = () => {
+    logoutUser();
+  };
+
+  return { onSubmitLogout, isPending };
 }
 
 export default useLogout;

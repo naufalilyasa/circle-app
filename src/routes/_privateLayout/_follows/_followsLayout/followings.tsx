@@ -73,7 +73,9 @@ function RouteComponent() {
           <p>No following.</p>
         </div>
       ) : isFetching ? (
-        <Loading size={8} />
+        <div className="mt-10 flex justify-center items-center">
+          <Loading size={8} />
+        </div>
       ) : (
         dataUserIsFollow.map((following) => (
           <Link

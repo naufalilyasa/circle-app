@@ -93,7 +93,7 @@ function DetailPostPage() {
 
   if (isFetching)
     return (
-      <div className="mt-20">
+      <div className="mt-20 flex justify-center items-center mx-auto">
         <Loading size={8} />
       </div>
     );

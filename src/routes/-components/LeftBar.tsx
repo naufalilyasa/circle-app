@@ -1,16 +1,57 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import circleLogo from "@/assets/image/circle.svg";
-import { useLocation } from "@tanstack/react-router";
+import { useLocation, useNavigate } from "@tanstack/react-router";
 import DialogCreateTweet from "./components/DialogCreateTweet";
 import HomeButton from "./components/HomeButton";
 import SearchButton from "./components/SearchButton";
 import FollowButton from "./components/FollowButton";
 import ProfileButton from "./components/ProfileButton";
-import LogoutButton from "./components/LogoutButton";
+import { TbLogout2 } from "react-icons/tb";
+import { useAuthUserStore } from "@/stores/auth";
+import { toast } from "react-toastify";
+import { useMutation } from "@tanstack/react-query";
+import { logoutUserFn } from "@/api/auth";
+import { useEffect } from "react";
 
 function LeftBar({ isOpen }: { isOpen: boolean }) {
   const currentLocation = useLocation({
     select: (location) => location.pathname,
   });
+
+  const { authUser, setAuthUser } = useAuthUserStore();
+  const navigate = useNavigate();
+
+  const { mutateAsync: logoutUser, isPending: isPendingLogout } = useMutation({
+    mutationFn: () => logoutUserFn(),
+    onSuccess: () => {
+      toast.success("Successfully logged out", {
+        position: "top-right",
+      });
+      setAuthUser(null);
+      navigate({ to: "/login", replace: true });
+    },
+    onError: (error: any) => {
+      if (Array.isArray((error as any).responses.data.error)) {
+        (error as any).responses.data.error.forEach((element: any) => {
+          toast.error(element.message, { position: "top-right" });
+        });
+      } else {
+        toast.error((error as any).response.data.message, {
+          position: "top-right",
+        });
+      }
+    },
+  });
+
+  const onSubmitLogout = () => {
+    logoutUser();
+  };
+
+  useEffect(() => {
+    if (!authUser) {
+      navigate({ to: "/login", replace: true });
+    }
+  }, [authUser, navigate]);
 
   return (
     <>
@@ -46,7 +87,16 @@ function LeftBar({ isOpen }: { isOpen: boolean }) {
             </div>
             <div className="mt-auto">
               {/* Logout Button */}
-              <LogoutButton />
+              <button
+                onClick={onSubmitLogout}
+                className="flex items-center bg-transparent rounded-md w-full lg:hover:bg-black active:bg-black/50 py-4 px-5 gap-4 cursor-pointer"
+                disabled={isPendingLogout}
+              >
+                <TbLogout2 className="w-8 h-8 stroke-1" />
+                <span className="lg:text-lg lg:font-medium lg:block md:hidden">
+                  Logout
+                </span>
+              </button>
             </div>
           </div>
         </div>

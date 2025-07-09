@@ -169,9 +169,9 @@ function ProfilePage() {
               <p className="text-[#909090] text-sm">{"@" + data?.username}</p>
               <p>{data?.bio}</p>
               <div className="flex gap-2 text-base">
-                <p>{data?._count.followers ? data?._count.followers : "0"}</p>
-                <span className="text-[#909090]">following</span>
                 <p>{data?._count.followings ? data?._count.followings : "0"}</p>
+                <span className="text-[#909090]">following</span>
+                <p>{data?._count.followers ? data?._count.followers : "0"}</p>
                 <span className="text-[#909090]">followers</span>
               </div>
             </div>
