@@ -51,8 +51,8 @@ function DialogCreateTweet() {
         {/* Create Post Button */}
         <DialogTrigger asChild>
           <div className="flex md:justify-center items-center md:block max-md:hidden">
-            <Button className="lg:w-full md:w-[50%] h-full rounded-full bg-[#04a41e] lg:hover:bg-[#04a41e]/75 lg:active:bg-[#04a41e] font-bold lg:py-3 lg:px-4 cursor-pointer">
-              <IoMdCreate className="lg:hidden md:size-8 " />
+            <Button className="lg:w-full md:w-[50%] md:flex md:justify-center md:items-center md:mx-auto h-full rounded-full bg-[#04a41e] lg:hover:bg-[#04a41e]/75 lg:active:bg-[#04a41e] font-bold lg:py-3 lg:px-4 cursor-pointer">
+              <IoMdCreate className="lg:hidden md:size-6 " />
               <span className="lg:text-xl lg:block md:hidden">Create Post</span>
             </Button>
           </div>

@@ -42,9 +42,7 @@ function LeftBar({ isOpen }: { isOpen: boolean }) {
                 {/* Profile Button */}
                 <ProfileButton currentLocation={currentLocation} />
               </div>
-              <div>
-                <DialogCreateTweet />
-              </div>
+              <DialogCreateTweet />
             </div>
             <div className="mt-auto">
               {/* Logout Button */}
