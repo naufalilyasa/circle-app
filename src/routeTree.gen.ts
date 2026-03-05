@@ -8,7 +8,6 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router'
 import type { CreateFileRoute, FileRoutesByPath } from '@tanstack/react-router'
 
 import { Route as rootRouteImport } from './routes/__root'
@@ -32,13 +31,6 @@ import { Route as PrivateLayoutFollowsFollowsLayoutFollowersRouteImport } from '
 import { Route as PrivateLayoutProfileProfileIdProfileIdLayoutIndexRouteImport } from './routes/_privateLayout/profile/$profileId/_$profileIdLayout/index'
 import { Route as PrivateLayoutProfileProfileIdProfileIdLayoutMediaRouteImport } from './routes/_privateLayout/profile/$profileId/_$profileIdLayout/media'
 
-const PrivateLayoutProfileRouteImport = createFileRoute(
-  '/_privateLayout/profile',
-)()
-const PrivateLayoutProfileProfileIdRouteImport = createFileRoute(
-  '/_privateLayout/profile/$profileId',
-)()
-
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
@@ -57,11 +49,6 @@ const ForgotRoute = ForgotRouteImport.update({
 const PrivateLayoutRoute = PrivateLayoutRouteImport.update({
   id: '/_privateLayout',
   getParentRoute: () => rootRouteImport,
-} as any)
-const PrivateLayoutProfileRoute = PrivateLayoutProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => PrivateLayoutRoute,
 } as any)
 const PrivateLayoutIndexRoute = PrivateLayoutIndexRouteImport.update({
   id: '/',
@@ -89,16 +76,11 @@ const PrivateLayoutSearchRoute = PrivateLayoutSearchRouteImport.update({
   path: '/search',
   getParentRoute: () => PrivateLayoutRoute,
 } as any)
-const PrivateLayoutProfileProfileIdRoute =
-  PrivateLayoutProfileProfileIdRouteImport.update({
-    id: '/$profileId',
-    path: '/$profileId',
-    getParentRoute: () => PrivateLayoutProfileRoute,
-  } as any)
 const PrivateLayoutProfileProfileLayoutRoute =
   PrivateLayoutProfileProfileLayoutRouteImport.update({
-    id: '/_profileLayout',
-    getParentRoute: () => PrivateLayoutProfileRoute,
+    id: '/profile/_profileLayout',
+    path: '/profile',
+    getParentRoute: () => PrivateLayoutRoute,
   } as any)
 const PrivateLayoutDetailTweetTweetIdRoute =
   PrivateLayoutDetailTweetTweetIdRouteImport.update({
@@ -125,8 +107,9 @@ const PrivateLayoutProfileProfileLayoutMediaRoute =
   } as any)
 const PrivateLayoutProfileProfileIdProfileIdLayoutRoute =
   PrivateLayoutProfileProfileIdProfileIdLayoutRouteImport.update({
-    id: '/_$profileIdLayout',
-    getParentRoute: () => PrivateLayoutProfileProfileIdRoute,
+    id: '/profile/$profileId/_$profileIdLayout',
+    path: '/profile/$profileId',
+    getParentRoute: () => PrivateLayoutRoute,
   } as any)
 const PrivateLayoutFollowsFollowsLayoutFollowingsRoute =
   PrivateLayoutFollowsFollowsLayoutFollowingsRouteImport.update({
@@ -154,7 +137,7 @@ const PrivateLayoutProfileProfileIdProfileIdLayoutMediaRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '': typeof PrivateLayoutFollowsFollowsLayoutRouteWithChildren
+  '/': typeof PrivateLayoutIndexRoute
   '/forgot': typeof ForgotRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
@@ -162,7 +145,6 @@ export interface FileRoutesByFullPath {
   '/detailImage/$tweetId': typeof DetailImageTweetIdRoute
   '/resetPassword/$resetCode': typeof ResetPasswordResetCodeRoute
   '/verifyEmail/$verificationCode': typeof VerifyEmailVerificationCodeRoute
-  '/': typeof PrivateLayoutIndexRoute
   '/detailTweet/$tweetId': typeof PrivateLayoutDetailTweetTweetIdRoute
   '/profile': typeof PrivateLayoutProfileProfileLayoutRouteWithChildren
   '/followers': typeof PrivateLayoutFollowsFollowsLayoutFollowersRoute
@@ -182,14 +164,13 @@ export interface FileRoutesByTo {
   '/resetPassword/$resetCode': typeof ResetPasswordResetCodeRoute
   '/verifyEmail/$verificationCode': typeof VerifyEmailVerificationCodeRoute
   '/': typeof PrivateLayoutIndexRoute
-  '': typeof PrivateLayoutFollowsFollowsLayoutRouteWithChildren
   '/detailTweet/$tweetId': typeof PrivateLayoutDetailTweetTweetIdRoute
-  '/profile': typeof PrivateLayoutProfileProfileLayoutIndexRoute
   '/followers': typeof PrivateLayoutFollowsFollowsLayoutFollowersRoute
   '/followings': typeof PrivateLayoutFollowsFollowsLayoutFollowingsRoute
-  '/profile/$profileId': typeof PrivateLayoutProfileProfileIdProfileIdLayoutIndexRoute
   '/profile/media': typeof PrivateLayoutProfileProfileLayoutMediaRoute
+  '/profile': typeof PrivateLayoutProfileProfileLayoutIndexRoute
   '/profile/$profileId/media': typeof PrivateLayoutProfileProfileIdProfileIdLayoutMediaRoute
+  '/profile/$profileId': typeof PrivateLayoutProfileProfileIdProfileIdLayoutIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -204,11 +185,9 @@ export interface FileRoutesById {
   '/_privateLayout/': typeof PrivateLayoutIndexRoute
   '/_privateLayout/_follows/_followsLayout': typeof PrivateLayoutFollowsFollowsLayoutRouteWithChildren
   '/_privateLayout/detailTweet/$tweetId': typeof PrivateLayoutDetailTweetTweetIdRoute
-  '/_privateLayout/profile': typeof PrivateLayoutProfileRouteWithChildren
   '/_privateLayout/profile/_profileLayout': typeof PrivateLayoutProfileProfileLayoutRouteWithChildren
   '/_privateLayout/_follows/_followsLayout/followers': typeof PrivateLayoutFollowsFollowsLayoutFollowersRoute
   '/_privateLayout/_follows/_followsLayout/followings': typeof PrivateLayoutFollowsFollowsLayoutFollowingsRoute
-  '/_privateLayout/profile/$profileId': typeof PrivateLayoutProfileProfileIdRouteWithChildren
   '/_privateLayout/profile/$profileId/_$profileIdLayout': typeof PrivateLayoutProfileProfileIdProfileIdLayoutRouteWithChildren
   '/_privateLayout/profile/_profileLayout/media': typeof PrivateLayoutProfileProfileLayoutMediaRoute
   '/_privateLayout/profile/_profileLayout/': typeof PrivateLayoutProfileProfileLayoutIndexRoute
@@ -218,7 +197,7 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | ''
+    | '/'
     | '/forgot'
     | '/login'
     | '/register'
@@ -226,7 +205,6 @@ export interface FileRouteTypes {
     | '/detailImage/$tweetId'
     | '/resetPassword/$resetCode'
     | '/verifyEmail/$verificationCode'
-    | '/'
     | '/detailTweet/$tweetId'
     | '/profile'
     | '/followers'
@@ -246,14 +224,13 @@ export interface FileRouteTypes {
     | '/resetPassword/$resetCode'
     | '/verifyEmail/$verificationCode'
     | '/'
-    | ''
     | '/detailTweet/$tweetId'
-    | '/profile'
     | '/followers'
     | '/followings'
-    | '/profile/$profileId'
     | '/profile/media'
+    | '/profile'
     | '/profile/$profileId/media'
+    | '/profile/$profileId'
   id:
     | '__root__'
     | '/_privateLayout'
@@ -267,11 +244,9 @@ export interface FileRouteTypes {
     | '/_privateLayout/'
     | '/_privateLayout/_follows/_followsLayout'
     | '/_privateLayout/detailTweet/$tweetId'
-    | '/_privateLayout/profile'
     | '/_privateLayout/profile/_profileLayout'
     | '/_privateLayout/_follows/_followsLayout/followers'
     | '/_privateLayout/_follows/_followsLayout/followings'
-    | '/_privateLayout/profile/$profileId'
     | '/_privateLayout/profile/$profileId/_$profileIdLayout'
     | '/_privateLayout/profile/_profileLayout/media'
     | '/_privateLayout/profile/_profileLayout/'
@@ -291,18 +266,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_privateLayout': {
-      id: '/_privateLayout'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof PrivateLayoutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/forgot': {
-      id: '/forgot'
-      path: '/forgot'
-      fullPath: '/forgot'
-      preLoaderRoute: typeof ForgotRouteImport
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -312,39 +280,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/register': {
-      id: '/register'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof RegisterRouteImport
+    '/forgot': {
+      id: '/forgot'
+      path: '/forgot'
+      fullPath: '/forgot'
+      preLoaderRoute: typeof ForgotRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_privateLayout/search': {
-      id: '/_privateLayout/search'
-      path: '/search'
-      fullPath: '/search'
-      preLoaderRoute: typeof PrivateLayoutSearchRouteImport
-      parentRoute: typeof PrivateLayoutRoute
-    }
-    '/detailImage/$tweetId': {
-      id: '/detailImage/$tweetId'
-      path: '/detailImage/$tweetId'
-      fullPath: '/detailImage/$tweetId'
-      preLoaderRoute: typeof DetailImageTweetIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/resetPassword/$resetCode': {
-      id: '/resetPassword/$resetCode'
-      path: '/resetPassword/$resetCode'
-      fullPath: '/resetPassword/$resetCode'
-      preLoaderRoute: typeof ResetPasswordResetCodeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/verifyEmail/$verificationCode': {
-      id: '/verifyEmail/$verificationCode'
-      path: '/verifyEmail/$verificationCode'
-      fullPath: '/verifyEmail/$verificationCode'
-      preLoaderRoute: typeof VerifyEmailVerificationCodeRouteImport
+    '/_privateLayout': {
+      id: '/_privateLayout'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof PrivateLayoutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_privateLayout/': {
@@ -354,11 +301,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateLayoutIndexRouteImport
       parentRoute: typeof PrivateLayoutRoute
     }
-    '/_privateLayout/_follows/_followsLayout': {
-      id: '/_privateLayout/_follows/_followsLayout'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof PrivateLayoutFollowsFollowsLayoutRouteImport
+    '/verifyEmail/$verificationCode': {
+      id: '/verifyEmail/$verificationCode'
+      path: '/verifyEmail/$verificationCode'
+      fullPath: '/verifyEmail/$verificationCode'
+      preLoaderRoute: typeof VerifyEmailVerificationCodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resetPassword/$resetCode': {
+      id: '/resetPassword/$resetCode'
+      path: '/resetPassword/$resetCode'
+      fullPath: '/resetPassword/$resetCode'
+      preLoaderRoute: typeof ResetPasswordResetCodeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/detailImage/$tweetId': {
+      id: '/detailImage/$tweetId'
+      path: '/detailImage/$tweetId'
+      fullPath: '/detailImage/$tweetId'
+      preLoaderRoute: typeof DetailImageTweetIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_privateLayout/search': {
+      id: '/_privateLayout/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof PrivateLayoutSearchRouteImport
+      parentRoute: typeof PrivateLayoutRoute
+    }
+    '/_privateLayout/profile/_profileLayout': {
+      id: '/_privateLayout/profile/_profileLayout'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof PrivateLayoutProfileProfileLayoutRouteImport
       parentRoute: typeof PrivateLayoutRoute
     }
     '/_privateLayout/detailTweet/$tweetId': {
@@ -368,40 +343,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateLayoutDetailTweetTweetIdRouteImport
       parentRoute: typeof PrivateLayoutRoute
     }
-    '/_privateLayout/profile/_profileLayout': {
-      id: '/_privateLayout/profile/_profileLayout'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof PrivateLayoutProfileProfileLayoutRouteImport
-      parentRoute: typeof PrivateLayoutProfileRoute
-    }
-    '/_privateLayout/_follows/_followsLayout/followers': {
-      id: '/_privateLayout/_follows/_followsLayout/followers'
-      path: '/followers'
-      fullPath: '/followers'
-      preLoaderRoute: typeof PrivateLayoutFollowsFollowsLayoutFollowersRouteImport
-      parentRoute: typeof PrivateLayoutFollowsFollowsLayoutRoute
-    }
-    '/_privateLayout/_follows/_followsLayout/followings': {
-      id: '/_privateLayout/_follows/_followsLayout/followings'
-      path: '/followings'
-      fullPath: '/followings'
-      preLoaderRoute: typeof PrivateLayoutFollowsFollowsLayoutFollowingsRouteImport
-      parentRoute: typeof PrivateLayoutFollowsFollowsLayoutRoute
-    }
-    '/_privateLayout/profile/$profileId/_$profileIdLayout': {
-      id: '/_privateLayout/profile/$profileId/_$profileIdLayout'
-      path: '/$profileId'
-      fullPath: '/profile/$profileId'
-      preLoaderRoute: typeof PrivateLayoutProfileProfileIdProfileIdLayoutRouteImport
-      parentRoute: typeof PrivateLayoutProfileProfileIdRoute
-    }
-    '/_privateLayout/profile/_profileLayout/media': {
-      id: '/_privateLayout/profile/_profileLayout/media'
-      path: '/media'
-      fullPath: '/profile/media'
-      preLoaderRoute: typeof PrivateLayoutProfileProfileLayoutMediaRouteImport
-      parentRoute: typeof PrivateLayoutProfileProfileLayoutRoute
+    '/_privateLayout/_follows/_followsLayout': {
+      id: '/_privateLayout/_follows/_followsLayout'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof PrivateLayoutFollowsFollowsLayoutRouteImport
+      parentRoute: typeof PrivateLayoutRoute
     }
     '/_privateLayout/profile/_profileLayout/': {
       id: '/_privateLayout/profile/_profileLayout/'
@@ -410,12 +357,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateLayoutProfileProfileLayoutIndexRouteImport
       parentRoute: typeof PrivateLayoutProfileProfileLayoutRoute
     }
-    '/_privateLayout/profile/$profileId/_$profileIdLayout/media': {
-      id: '/_privateLayout/profile/$profileId/_$profileIdLayout/media'
+    '/_privateLayout/profile/_profileLayout/media': {
+      id: '/_privateLayout/profile/_profileLayout/media'
       path: '/media'
-      fullPath: '/profile/$profileId/media'
-      preLoaderRoute: typeof PrivateLayoutProfileProfileIdProfileIdLayoutMediaRouteImport
-      parentRoute: typeof PrivateLayoutProfileProfileIdProfileIdLayoutRoute
+      fullPath: '/profile/media'
+      preLoaderRoute: typeof PrivateLayoutProfileProfileLayoutMediaRouteImport
+      parentRoute: typeof PrivateLayoutProfileProfileLayoutRoute
+    }
+    '/_privateLayout/profile/$profileId/_$profileIdLayout': {
+      id: '/_privateLayout/profile/$profileId/_$profileIdLayout'
+      path: '/profile/$profileId'
+      fullPath: '/profile/$profileId'
+      preLoaderRoute: typeof PrivateLayoutProfileProfileIdProfileIdLayoutRouteImport
+      parentRoute: typeof PrivateLayoutRoute
+    }
+    '/_privateLayout/_follows/_followsLayout/followings': {
+      id: '/_privateLayout/_follows/_followsLayout/followings'
+      path: '/followings'
+      fullPath: '/followings'
+      preLoaderRoute: typeof PrivateLayoutFollowsFollowsLayoutFollowingsRouteImport
+      parentRoute: typeof PrivateLayoutFollowsFollowsLayoutRoute
+    }
+    '/_privateLayout/_follows/_followsLayout/followers': {
+      id: '/_privateLayout/_follows/_followsLayout/followers'
+      path: '/followers'
+      fullPath: '/followers'
+      preLoaderRoute: typeof PrivateLayoutFollowsFollowsLayoutFollowersRouteImport
+      parentRoute: typeof PrivateLayoutFollowsFollowsLayoutRoute
     }
     '/_privateLayout/profile/$profileId/_$profileIdLayout/': {
       id: '/_privateLayout/profile/$profileId/_$profileIdLayout/'
@@ -424,19 +392,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivateLayoutProfileProfileIdProfileIdLayoutIndexRouteImport
       parentRoute: typeof PrivateLayoutProfileProfileIdProfileIdLayoutRoute
     }
-    '/_privateLayout/profile': {
-      id: '/_privateLayout/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof PrivateLayoutProfileRouteImport
-      parentRoute: typeof PrivateLayoutRoute
-    }
-    '/_privateLayout/profile/$profileId': {
-      id: '/_privateLayout/profile/$profileId'
-      path: '/$profileId'
-      fullPath: '/profile/$profileId'
-      preLoaderRoute: typeof PrivateLayoutProfileProfileIdRouteImport
-      parentRoute: typeof PrivateLayoutProfileRoute
+    '/_privateLayout/profile/$profileId/_$profileIdLayout/media': {
+      id: '/_privateLayout/profile/$profileId/_$profileIdLayout/media'
+      path: '/media'
+      fullPath: '/profile/$profileId/media'
+      preLoaderRoute: typeof PrivateLayoutProfileProfileIdProfileIdLayoutMediaRouteImport
+      parentRoute: typeof PrivateLayoutProfileProfileIdProfileIdLayoutRoute
     }
   }
 }
@@ -667,42 +628,13 @@ const PrivateLayoutProfileProfileIdProfileIdLayoutRouteWithChildren =
     PrivateLayoutProfileProfileIdProfileIdLayoutRouteChildren,
   )
 
-interface PrivateLayoutProfileProfileIdRouteChildren {
-  PrivateLayoutProfileProfileIdProfileIdLayoutRoute: typeof PrivateLayoutProfileProfileIdProfileIdLayoutRouteWithChildren
-}
-
-const PrivateLayoutProfileProfileIdRouteChildren: PrivateLayoutProfileProfileIdRouteChildren =
-  {
-    PrivateLayoutProfileProfileIdProfileIdLayoutRoute:
-      PrivateLayoutProfileProfileIdProfileIdLayoutRouteWithChildren,
-  }
-
-const PrivateLayoutProfileProfileIdRouteWithChildren =
-  PrivateLayoutProfileProfileIdRoute._addFileChildren(
-    PrivateLayoutProfileProfileIdRouteChildren,
-  )
-
-interface PrivateLayoutProfileRouteChildren {
-  PrivateLayoutProfileProfileLayoutRoute: typeof PrivateLayoutProfileProfileLayoutRouteWithChildren
-  PrivateLayoutProfileProfileIdRoute: typeof PrivateLayoutProfileProfileIdRouteWithChildren
-}
-
-const PrivateLayoutProfileRouteChildren: PrivateLayoutProfileRouteChildren = {
-  PrivateLayoutProfileProfileLayoutRoute:
-    PrivateLayoutProfileProfileLayoutRouteWithChildren,
-  PrivateLayoutProfileProfileIdRoute:
-    PrivateLayoutProfileProfileIdRouteWithChildren,
-}
-
-const PrivateLayoutProfileRouteWithChildren =
-  PrivateLayoutProfileRoute._addFileChildren(PrivateLayoutProfileRouteChildren)
-
 interface PrivateLayoutRouteChildren {
   PrivateLayoutSearchRoute: typeof PrivateLayoutSearchRoute
   PrivateLayoutIndexRoute: typeof PrivateLayoutIndexRoute
   PrivateLayoutFollowsFollowsLayoutRoute: typeof PrivateLayoutFollowsFollowsLayoutRouteWithChildren
   PrivateLayoutDetailTweetTweetIdRoute: typeof PrivateLayoutDetailTweetTweetIdRoute
-  PrivateLayoutProfileRoute: typeof PrivateLayoutProfileRouteWithChildren
+  PrivateLayoutProfileProfileLayoutRoute: typeof PrivateLayoutProfileProfileLayoutRouteWithChildren
+  PrivateLayoutProfileProfileIdProfileIdLayoutRoute: typeof PrivateLayoutProfileProfileIdProfileIdLayoutRouteWithChildren
 }
 
 const PrivateLayoutRouteChildren: PrivateLayoutRouteChildren = {
@@ -711,7 +643,10 @@ const PrivateLayoutRouteChildren: PrivateLayoutRouteChildren = {
   PrivateLayoutFollowsFollowsLayoutRoute:
     PrivateLayoutFollowsFollowsLayoutRouteWithChildren,
   PrivateLayoutDetailTweetTweetIdRoute: PrivateLayoutDetailTweetTweetIdRoute,
-  PrivateLayoutProfileRoute: PrivateLayoutProfileRouteWithChildren,
+  PrivateLayoutProfileProfileLayoutRoute:
+    PrivateLayoutProfileProfileLayoutRouteWithChildren,
+  PrivateLayoutProfileProfileIdProfileIdLayoutRoute:
+    PrivateLayoutProfileProfileIdProfileIdLayoutRouteWithChildren,
 }
 
 const PrivateLayoutRouteWithChildren = PrivateLayoutRoute._addFileChildren(
