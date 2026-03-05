@@ -33,15 +33,7 @@ export interface UnfollowRequest {
   targetUserId: string;
 }
 
-export interface FollowResponse {
-  status: string;
-  message: string;
-}
-
-export interface UnfollowResponse {
-  status: string;
-  message: string;
-}
+// Replaced with GenericResponse in api layer
 
 export interface UsersIsFollowingResponse {
   usersIsFollowing: UsersIsfollowingType[];

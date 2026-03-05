@@ -3,7 +3,8 @@ import { CreateTweetDTO, TweetValidation } from "@/schemas/tweet";
 import { useAuthUserStore } from "@/stores/auth";
 import { TweetRequest } from "@/types/tweet";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import useInvalidateQueries from "@/hooks/useInvalidateQueries";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -14,13 +15,7 @@ function useCreateTweet(queryKeys?: string[][]) {
     resolver: zodResolver(TweetValidation.CREATE_TWEET),
   });
 
-  const queryClient = useQueryClient();
-  const invalidateAll = () => {
-    if (!queryKeys) return;
-    queryKeys.forEach((key) => {
-      queryClient.invalidateQueries({ queryKey: key });
-    });
-  };
+  const invalidateAll = useInvalidateQueries(queryKeys);
 
   const { reset, formState, handleSubmit } = form;
 
@@ -32,21 +27,11 @@ function useCreateTweet(queryKeys?: string[][]) {
     mutationKey: ["createTweet"],
     mutationFn: (tweetData: TweetRequest) => createTweetFn(tweetData),
     onSuccess: () => {
-      toast.success("You successfully created tweet", {
-        position: "top-right",
-      });
+      toast.success("You successfully created tweet");
       invalidateAll();
     },
     onError: (error: Error) => {
-      if (Array.isArray(error.message)) {
-        error.message.forEach((element) => {
-          toast.error(element, { position: "top-right" });
-        });
-      } else {
-        toast.error(error.message, {
-          position: "top-right",
-        });
-      }
+      toast.error(error.message);
     },
   });
 

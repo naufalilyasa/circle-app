@@ -37,7 +37,7 @@ root.render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <CookiesProvider>
-        <ToastContainer />
+        <ToastContainer position="top-right" />
         <RouterProvider router={router} />
       </CookiesProvider>
     </QueryClientProvider>

@@ -1,7 +1,8 @@
 import { createReplyByIdFn } from "@/api/reply";
 import { CreateReplyDTO, ReplyValidation } from "@/schemas/reply";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import useInvalidateQueries from "@/hooks/useInvalidateQueries";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -14,17 +15,10 @@ type PropsCreateReply = {
 };
 
 function useCreateReply(props: PropsCreateReply) {
-  const queryClient = useQueryClient();
+  const invalidateAll = useInvalidateQueries(props.queryKeys);
   const form = useForm<CreateReplyDTO>({
     resolver: zodResolver(ReplyValidation.CREATE_REPLY),
   });
-
-  const invalidateAll = () => {
-    if (!props.queryKeys) return;
-    props.queryKeys.forEach((key) => {
-      queryClient.invalidateQueries({ queryKey: key });
-    });
-  };
 
   const { handleSubmit, formState, reset } = form;
 
@@ -32,23 +26,11 @@ function useCreateReply(props: PropsCreateReply) {
     mutationKey: ["createReply"],
     mutationFn: createReplyByIdFn,
     onSuccess: () => {
-      toast.success("Successfully replying", {
-        position: "top-right",
-      });
+      toast.success("Successfully replying");
       invalidateAll();
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onError: (error: any) => {
-      if (Array.isArray(error.message)) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        error.message.forEach((element: any) => {
-          toast.error(element, { position: "top-right" });
-        });
-      } else {
-        toast.error(error.message, {
-          position: "top-right",
-        });
-      }
+    onError: (error: Error) => {
+      toast.error(error.message);
     },
   });
 

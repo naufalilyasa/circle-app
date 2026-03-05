@@ -54,7 +54,7 @@ export const allTweetsWithMediaByUserIdFn = async ({
   pageParam: number;
 }) => {
   try {
-    const queryParams = `?page=${pageParam}&limit=10`;
+    const queryParams = `?page=${pageParam}&limit=10&hasMedia=true`;
 
     const response = await api.get<AllTweetByUserIdResponse>(
       `/tweets/all/${userId}${queryParams}`
@@ -72,7 +72,7 @@ export const allTweetsWithMediaByUserIdFn = async ({
 
 export const createTweetFn = async (tweetData: TweetRequest) => {
   try {
-    const response = await api.post<TweetRequest>(`/tweets`, tweetData, {
+    const response = await api.post<GenericResponse>(`/tweets`, tweetData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },

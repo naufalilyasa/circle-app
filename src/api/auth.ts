@@ -1,5 +1,5 @@
 import api from "@/lib/axios";
-import { useAuthUserStore } from "@/stores/auth";
+// Store mutations removed from API layer
 import {
   GenericResponse,
   LoginUserRequest,
@@ -37,7 +37,7 @@ api.interceptors.response.use(
           new Error(error.response?.data.message || "Server internal error")
         );
       }
-      return new Error("Server internal error.");
+      return Promise.reject(new Error("Server internal error."));
     }
 
     return Promise.reject(error);
@@ -55,6 +55,7 @@ export const signUpUserFn = async (userInput: RegisterUserRequest) => {
     if (isAxiosError(error)) {
       throw new Error(error.response?.data?.message);
     }
+    throw new Error("Unknown error");
   }
 };
 
@@ -69,6 +70,7 @@ export const loginUserFn = async (userInput: LoginUserRequest) => {
     if (isAxiosError(error)) {
       throw new Error(error.response?.data?.message);
     }
+    throw new Error("Unknown error");
   }
 };
 
@@ -87,8 +89,9 @@ export const logoutUserFn = async () => {
 export const getMeFn = async (): Promise<MeResponse | undefined> => {
   try {
     const response = await api.get<MeResponse>("/users/me");
-    const authDataResponse = response.data;
-    useAuthUserStore.getState().setAuthUser(authDataResponse);
+
+    // Store mutation should be performed by the consumer (e.g. via onSuccess hook or loader)
+    // removed setAuthUser call here
 
     if (!response.data) {
       throw new Error("Invalid token or token expires");
@@ -141,5 +144,6 @@ export const resetPasswordFn = async (
     if (isAxiosError(error)) {
       throw new Error(error.response?.data?.message);
     }
+    throw new Error("Unknown error");
   }
 };

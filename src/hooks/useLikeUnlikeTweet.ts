@@ -1,15 +1,10 @@
 import { likeTweetFn, unlikeTweetFn } from "@/api/like";
 import { LikeRequest } from "@/types/like";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import useInvalidateQueries from "@/hooks/useInvalidateQueries";
 
 function useLikeUnlikeTweet(queryKeys: string[][]) {
-  const queryClient = useQueryClient();
-
-  const invalidateAll = () => {
-    queryKeys.forEach((key) => {
-      queryClient.invalidateQueries({ queryKey: key });
-    });
-  };
+  const invalidateAll = useInvalidateQueries(queryKeys);
 
   const { mutate: likeTweet, isPending: isLoadingLikeTweet } = useMutation({
     mutationKey: ["likeTweet"],

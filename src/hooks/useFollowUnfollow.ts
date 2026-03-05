@@ -1,16 +1,10 @@
 import { userFollowFn, userUnfollowFn } from "@/api/follow";
 import { FollowRequest, UnfollowRequest } from "@/types/follow";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import useInvalidateQueries from "@/hooks/useInvalidateQueries";
 
 function useFollowUnfollow(queryKeys?: string[][]) {
-  const queryClient = useQueryClient();
-
-  const invalidateAll = () => {
-    if (!queryKeys) return;
-    queryKeys.forEach((key) => {
-      queryClient.invalidateQueries({ queryKey: key });
-    });
-  };
+  const invalidateAll = useInvalidateQueries(queryKeys);
 
   const { mutate: follow, isPending: isLoadingFollow } = useMutation({
     mutationKey: ["followUser"],

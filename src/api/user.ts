@@ -10,23 +10,12 @@ export const getUserByIdFn = async (userId: string) => {
       throw new Error("Failed to get user by id");
     }
     return response.data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     if (isAxiosError(error)) {
       throw new Error(error.response?.data?.message);
     }
 
-    throw new Error(error);
-  }
-};
-
-export const getTweetByUserIdFn = async (userId: string) => {
-  try {
-    const response = await api.get(`/users/${userId}`);
-    return response.data;
-  } catch (error) {
-    if (isAxiosError(error)) {
-      throw new Error(error.response?.data?.message);
-    }
+    throw new Error(error instanceof Error ? error.message : "Unknown error");
   }
 };
 
@@ -50,7 +39,7 @@ export const getAllUserFn = async (search: string) => {
     const response = await api.get<UsersResponse>(`/users?search=${search}`);
 
     return response.data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     if (isAxiosError(error)) {
       throw new Error(error.response?.data?.message);
     }

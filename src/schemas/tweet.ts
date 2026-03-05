@@ -1,30 +1,38 @@
 import { z } from "zod";
 
+const ALLOWED_IMAGE_TYPES = [
+  "image/png",
+  "image/jpeg",
+  "image/jpg",
+  "image/svg+xml",
+  "image/gif",
+  "image/webp",
+];
+const MAX_IMAGE_SIZE_BYTES = 5 * 1024 * 1024;
+
+const imageSchema = z
+  .instanceof(File, { message: "This is not file." })
+  .optional()
+  .refine(
+    (file) => {
+      if (!file) return true;
+      return ALLOWED_IMAGE_TYPES.includes(file.type);
+    },
+    { message: "Invalid image file type", path: ["image"] }
+  )
+  .refine(
+    (file) => {
+      if (!file) return true;
+      return file.size <= MAX_IMAGE_SIZE_BYTES;
+    },
+    { message: "Max 5 mb size image.", path: ["image"] }
+  );
+
 export class TweetValidation {
   static readonly CREATE_TWEET = z
     .object({
       content: z.string().trim().min(1).max(1000).optional(),
-      image: z
-        .instanceof(File, { message: "This is not file." })
-        .optional()
-        .refine((file) => {
-          if (!file) return true;
-          return (
-            [
-              "image/png",
-              "image/jpeg",
-              "image/jpg",
-              "image/svg+xml",
-              "image/gif",
-              "image/webp",
-            ].includes(file!.type),
-            { message: "Invalid image file type" }
-          );
-        })
-        .refine((file) => {
-          if (!file) return true;
-          return file!.size <= 5 * 1024 * 1024;
-        }, "Max 5 mb size image."),
+      image: imageSchema,
     })
     .refine((data) => Boolean(data.content?.trim()) || Boolean(data.image), {
       message: "Either content or image must be provided",
@@ -34,33 +42,7 @@ export class TweetValidation {
   static readonly UPDATE_TWEET = z
     .object({
       content: z.string().trim().min(1).max(1000),
-      image: z
-        .instanceof(File)
-        .optional()
-        .refine(
-          (file) => {
-            if (!file) return true;
-            return [
-              "image/png",
-              "image/jpeg",
-              "image/jpg",
-              "image/svg+xml",
-              "image/gif",
-              "image/webp",
-            ].includes(file!.type);
-          },
-          { message: "Invalid image file type", path: ["image"] }
-        )
-        .refine(
-          (file) => {
-            if (!file) return true;
-            return file!.size <= 5 * 1024 * 1024;
-          },
-          {
-            message: "Max 5 mb size image.",
-            path: ["image"],
-          }
-        ),
+      image: imageSchema,
     })
     .refine((data) => Boolean(data.content?.trim()) || Boolean(data.image), {
       message: "Either content or image must be provided",

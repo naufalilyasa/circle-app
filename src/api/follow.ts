@@ -1,10 +1,9 @@
 import api from "@/lib/axios";
+import { GenericResponse } from "@/types/auth";
 import {
   FollowRequest,
-  FollowResponse,
   SuggestedFollowersResponse,
   UnfollowRequest,
-  UnfollowResponse,
   UsersIsFollowerResponse,
   UsersIsFollowingResponse,
 } from "@/types/follow";
@@ -57,7 +56,7 @@ export const getSuggestedFollowers = async (userId: string) => {
 
 export const userFollowFn = async (payload: FollowRequest) => {
   try {
-    const response = await api.post<FollowResponse>(
+    const response = await api.post<GenericResponse>(
       `/follow/${payload.targetUserId}`,
       {
         userId: payload.userId,
@@ -76,7 +75,7 @@ export const userFollowFn = async (payload: FollowRequest) => {
 
 export const userUnfollowFn = async (payload: UnfollowRequest) => {
   try {
-    const response = await api.delete<UnfollowResponse>(
+    const response = await api.delete<GenericResponse>(
       `/unfollow/${payload.targetUserId}`
     );
 

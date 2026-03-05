@@ -6,10 +6,17 @@ export interface RegisterUserRequest {
   passwordConfirm: string;
 }
 
+export interface RegisteredUser {
+  id: string;
+  name: string;
+  username?: string;
+  email: string;
+}
+
 export interface RegisterUserResponse {
   status: string;
   data: {
-    user: RegisterUserRequest;
+    user: RegisteredUser;
   };
 }
 

@@ -32,7 +32,7 @@ export class AuthUserValidation {
     });
 
   static readonly EMAIL_VERIFICATION = z.object({
-    verificationCode: z.string().min(1, "Email verifciation code is required"),
+    verificationCode: z.string().min(1, "Email verification code is required"),
   });
 
   static readonly FORGOT_PASSWORD = z.object({

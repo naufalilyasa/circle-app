@@ -2,10 +2,7 @@ import api from "@/lib/axios";
 import { LikeRequest } from "@/types/like";
 import { isAxiosError } from "axios";
 
-type GenericResponse = {
-  status: string;
-  message: string;
-};
+import { GenericResponse } from "@/types/auth";
 
 export const likeTweetFn = async (payload: LikeRequest) => {
   try {

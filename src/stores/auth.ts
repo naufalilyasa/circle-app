@@ -1,25 +1,11 @@
-import { AuthUserStore, MeResponse } from "@/types/auth";
+import { AuthUserStore } from "@/types/auth";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export const useAuthUserStore = create<AuthUserStore>()(
   persist(
     (set) => ({
-      authUser: {
-        status: "",
-        data: {
-          user: {
-            id: "",
-            name: "",
-            photoProfile: "",
-            username: "",
-            email: "",
-            role: "",
-            bio: "",
-            provider: null,
-          },
-        },
-      } as MeResponse,
+      authUser: null,
       setAuthUser: (user) => {
         set({ authUser: user });
       },

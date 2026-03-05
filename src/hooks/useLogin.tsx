@@ -29,22 +29,12 @@ function useLogin() {
   const { isPending, mutateAsync: loginUser } = useMutation({
     mutationFn: (userData: LoginUserRequest) => loginUserFn(userData),
     onSuccess: () => {
-      toast.success("You successfully logged in", {
-        position: "top-right",
-      });
+      toast.success("You successfully logged in");
       queryClient.invalidateQueries({ queryKey: ["getMe"] });
       navigate({ to: "/" });
     },
     onError: (error: Error) => {
-      if (Array.isArray(error.message)) {
-        (error as any).message.forEach((element: any) => {
-          toast.error(element, { position: "top-right" });
-        });
-      } else {
-        toast.error(error.message, {
-          position: "top-right",
-        });
-      }
+      toast.error(error.message);
     },
   });
 

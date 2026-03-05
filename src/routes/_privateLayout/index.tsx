@@ -71,7 +71,6 @@ function HomePage() {
   return (
     <section
       ref={containerRef}
-      onScroll={handleScroll}
       className="h-full max-w-full"
     >
       <div className="grid grid-cols-1 border-collapse">
@@ -95,12 +94,13 @@ function HomePage() {
                       : "/profile/$profileId"
                   }
                   params={{ profileId: tweet.author.id }}
+                  aria-label={`View ${tweet.author.name}'s profile`}
                 >
                   <Avatar className="w-10 h-10">
                     <AvatarImage
                       src={
                         tweet.author.photoProfile ===
-                        "https://github.com/shadcn.png"
+                          "https://github.com/shadcn.png"
                           ? "https://github.com/shadcn.png"
                           : tweet.author.photoProfile
                       }
@@ -158,11 +158,13 @@ function HomePage() {
                     <span className="w-full text-sm font-normal">
                       {tweet.content}
                     </span>
-                    <img
-                      src={tweet.imageUrl ? tweet.imageUrl : "/"}
-                      alt=""
-                      className="rounded-lg w-[70%]"
-                    />
+                    {tweet.imageUrl && (
+                      <img
+                        src={tweet.imageUrl}
+                        alt="Tweet media"
+                        className="rounded-lg w-[70%]"
+                      />
+                    )}
                     <div className="flex gap-3 text-[#909090] text-sm font-normal">
                       <div className="flex gap-2 items-center py-1">
                         <div className="flex justify-center items-center">

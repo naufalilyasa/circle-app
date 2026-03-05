@@ -24,18 +24,8 @@ function useRegister() {
     onSuccess: (data) => {
       toast.success(data?.message);
     },
-    onError: (error: any) => {
-      if (Array.isArray((error as any).response.data.error)) {
-        (error as any).response.data.error.forEach((element: any) => {
-          toast.error(element.message, {
-            position: "top-right",
-          });
-        });
-      } else {
-        toast.error((error as any).response.data.message, {
-          position: "top-right",
-        });
-      }
+    onError: (error: Error) => {
+      toast.error(error.message);
     },
   });
 
