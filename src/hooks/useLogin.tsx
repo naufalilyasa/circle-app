@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { loginUserFn } from "@/api/auth";
+import { getMeFn, loginUserFn } from "@/api/auth";
 import { AuthUserValidation, LoginUserDTO } from "@/schemas/auth";
 import { LoginUserRequest } from "@/types/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
+import { useAuthUserStore } from "@/stores/auth";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 function useLogin() {
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
+  const { setAuthUser } = useAuthUserStore();
 
   const form = useForm<LoginUserDTO>({
     resolver: zodResolver(AuthUserValidation.LOGIN),
@@ -28,9 +29,11 @@ function useLogin() {
 
   const { isPending, mutateAsync: loginUser } = useMutation({
     mutationFn: (userData: LoginUserRequest) => loginUserFn(userData),
-    onSuccess: () => {
+    onSuccess: async () => {
+      // Fetch and hydrate store BEFORE navigating so CardProfile doesn't crash
+      const me = await getMeFn();
+      if (me) setAuthUser(me);
       toast.success("You successfully logged in");
-      queryClient.invalidateQueries({ queryKey: ["getMe"] });
       navigate({ to: "/" });
     },
     onError: (error: Error) => {

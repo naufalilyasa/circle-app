@@ -84,7 +84,7 @@ function HomePage() {
           <React.Fragment key={pageIndex}>
             {page?.data?.tweetsIsLike?.map((tweet) => (
               <article
-                className="flex gap-4 md:px-4 px-4 py-4 items-start border-b-1 border-[#2c2c2c] md:w-full max-md:w-full"
+                className="flex gap-4 md:px-4 px-4 py-4 items-start border-b border-[#2c2c2c] md:w-full max-md:w-full"
                 key={tweet.id}
               >
                 <Link
@@ -219,7 +219,7 @@ function HomePage() {
           </div>
         )}
         {!hasNextPage && (
-          <div className="flex p-5 border-x-1 border-[#3F3F3F]">
+          <div className="flex p-5 border-x border-[#3F3F3F]">
             <p>No more tweets.</p>
           </div>
         )}

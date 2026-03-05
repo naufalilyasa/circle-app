@@ -9,7 +9,7 @@ import Loading from "@/routes/_privateLayout/-components/Other/Loading";
 
 function CardProfile() {
   const { authUser } = useAuthUserStore();
-  const userId = authUser!.data.user.id;
+  const userId = authUser?.data?.user?.id;
 
   const { data, isLoading } = useQuery({
     queryKey: ["getUserById", userId],
@@ -18,7 +18,7 @@ function CardProfile() {
     placeholderData: defaultDataUserById,
   });
 
-  if (isLoading)
+  if (!userId || isLoading)
     return (
       <div className="mt-20 flex justify-center items-center mx-auto">
         <Loading size={8} />;
@@ -26,7 +26,7 @@ function CardProfile() {
     );
   return (
     <>
-      <Card className="w-full bg-[#262626] text-[#fff] border-none">
+      <Card className="w-full bg-[#262626] text-white border-none">
         <div className="flex flex-col gap-1">
           <CardHeader className="flex flex-col gap-5">
             <CardTitle className="text-xl">My Profile</CardTitle>
@@ -50,7 +50,7 @@ function CardProfile() {
               <div className="">
                 <Link
                   to={"/profile"}
-                  className="px-4 py-2 flex-1 w-full text-sm font-bold rounded-full border-1 border-[#FFFFFF]"
+                  className="px-4 py-2 flex-1 w-full text-sm font-bold rounded-full border border-[#FFFFFF]"
                 >
                   Edit Profile
                 </Link>

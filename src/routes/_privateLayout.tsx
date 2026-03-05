@@ -30,7 +30,7 @@ function MainLayout() {
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   return (
-    <main className="flex bg-[#1d1d1d] min-h-svh max-w-screen overflow-hidden overflow-x-hidden font-plus-jakarta-sans text-[#fff]">
+    <main className="flex bg-[#1d1d1d] min-h-svh max-w-screen overflow-hidden overflow-x-hidden font-plus-jakarta-sans text-white">
       {/* Overlay */}
       {isOpen && <div className="fixed inset-0 z-40" onClick={toggleSidebar} />}
       <LeftBar isOpen={isOpen} />
