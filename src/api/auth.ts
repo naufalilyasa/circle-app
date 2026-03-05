@@ -15,12 +15,12 @@ api.interceptors.response.use(
   (res) => res,
   async (error) => {
     const originalRequest = error.config;
-    const errMessage = error.response.data.message as string;
+    const errMessage = error.response?.data?.message as string | undefined;
 
     try {
       if (
-        errMessage.includes("You're not logged in") &&
-        error.response.status === 401 &&
+        errMessage?.includes("You're not logged in") &&
+        error.response?.status === 401 &&
         !originalRequest._retry
       ) {
         originalRequest._retry = true;
@@ -28,13 +28,19 @@ api.interceptors.response.use(
 
         return api(originalRequest);
       }
-    } catch (error) {
-      if (isAxiosError(error)) {
-        if (error.response?.data.message === "Could not refresh access token") {
-          return Promise.reject(new Error("You're not logged in"));
-        }
+    } catch (refreshError) {
+      // Refresh token failed — session is fully expired, force logout
+      const { useAuthUserStore } = await import("@/stores/auth");
+      useAuthUserStore.getState().setAuthUser(null);
+
+      // Redirect to login (works outside React component tree)
+      if (typeof window !== "undefined") {
+        window.location.href = "/login";
+      }
+
+      if (isAxiosError(refreshError)) {
         return Promise.reject(
-          new Error(error.response?.data.message || "Server internal error")
+          new Error(refreshError.response?.data?.message || "Server internal error")
         );
       }
       return Promise.reject(new Error("Server internal error."));
